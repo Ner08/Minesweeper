@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<title>Minesweeper | Dificulty: Eazy / Size: Big</title>
+<head>
+	<link rel="icon" href="http://www.sireasgallery.com/iconset/minesweeper/Flag_256x256_32.png">
+<style>
+	body{
+		background-color: #FDA50F;
+		margin: 0;
+		margin-right: 0;
+		margin-bottom: 0;
+	}
+	header{
+		background-color: #303030;
+		color: white;
+		margin: 0px;
+		padding: 0px;
+		border-bottom:white 1px solid;
+		width: 100%;
+		text-align: center;
+	}
+	input[type=number] {
+		height: 30px;
+		width: 70px;
+		border-radius: 5px;
+		text-align: center;
+		font-size: 20px;
+	}
+	footer{
+		position:fixed;
+  		bottom:0;
+  		width:100%;
+   		height:20px; 
+  		background:#303030;
+  		color: white;
+	}
+	#title{
+		display: inline-block;
+		font-size: 40px;
+		font-family: Impact, Charcoal, sans-serif;
+		margin:0 auto;
+		padding: 0px;
+		width: 225px;
+	}
+	#output{
+		margin: auto;
+		margin-top:40px;
+  		width: 1050px;
+  		border: 6px groove white;
+  		padding: 10px;
+  		font-size: 40px;
+  		color: WhiteSmoke;
+  		line-height: 0.8;
+  		text-align: center;
+  		background-color: #303030;
+  		cursor: pointer;
+  	}
+	#remaining{
+		display: block;
+		width: 180px;
+		height: 30px;
+		margin: auto;
+		font-family: Impact, Charcoal, sans-serif;
+		font-size: 26px;
+		background-color: #303030;
+		color: yellow;
+		border-radius: 5px;
+		text-align: center;
+		margin-top: 2px;
+	}
+	#remaining2{
+		display: block;
+		width: 380px;
+		height: 70px;
+		margin: auto;
+		margin-top:30px; 
+		font-family: Impact, Charcoal, sans-serif;
+		font-size: 23px;
+		background-color: #303030;
+		color: white;
+		border-radius: 5px;
+		text-align: center;
+		padding-top: 12px;
+		border:white 1px solid;
+	}
+	#explosions{
+		display: block;
+		width: 80px;
+		height:30px;
+		margin: auto;
+		font-family: Impact, Charcoal, sans-serif;
+		font-size: 28px;
+		background-color: #303030;
+		color: yellow;
+		text-align: center;
+		border-radius: 5px;
+		margin-top: 2px;
+
+	}
+	#explosions2{
+		display: block;
+		width: 280px;
+		height: 70px;
+		margin: auto;
+		margin-top:20px; 
+		font-family: Impact, Charcoal, sans-serif;
+		font-size: 23px;
+		background-color: #303030;
+		color: white;
+		border-radius: 5px;
+		text-align: center;
+		padding-top: 12px;
+		
+		border:white 1px solid;
+	}
+	#form{
+		position: absolute;
+		width: 100%;
+		margin:auto;
+  		bottom:30px;
+  		text-align: center;
+	}
+	#check{
+		margin-left: 30px;
+		background-color:#303030;
+		color: white;
+		width: 90px;
+		height: 40px;
+		border-radius: 5px;
+	}
+	#hit{
+		background-color:#303030;
+		color: white;
+		width: 90px;
+		height: 40px;
+		border-radius: 5px;
+	}
+	#new{
+		float:left;
+		margin: 0;
+		background-color:#303030;
+		color: white;
+		width: 140px;
+		height: 48px;
+		border:0;
+		font-size: 27px;
+		font-family: Impact, Charcoal, sans-serif;
+		cursor: pointer;
+	}
+	#info{
+		float:right;
+    	margin: 0;
+		background-color:#303030;
+		color: white;
+		width: 140px;
+		height: 48px;
+		border:0;
+		font-size: 27px;
+		font-family: Impact, Charcoal, sans-serif;
+		cursor: pointer;
+	}
+	.para{
+		width: 35px;
+		float: left;
+		height: 35px;
+		margin: 0px;
+	}
+	.bomb{
+		text-align: center;
+		font-size: 30px; 
+	}
+	.hidden{
+    display:none;
+	}
+
+	.unhidden{
+    display:block;
+	}
+	#time{
+		width: 130px;
+		height: 45px;
+		right: 20px;
+		bottom: 30px;
+		position: absolute;
+		font-size: 30px;
+		font-family:Impact, Charcoal, sans-serif;
+		background: white;
+		border-radius: 5px;
+		border:#303030 solid 1px;
+		text-align: center;
+		padding-top: 7px;
+	}
+	#time2{
+		width: 63px;
+		height: 50px;
+		right: 55px;
+		bottom: 100px;
+		position: absolute;
+		font-size: 30px;
+		font-family:"Trebuchet MS", Helvetica, sans-serif;
+		text-align: center;
+		font-weight: bold;
+		padding-top: 12px;
+		border:black solid 1px;
+		background-color: red;
+		border-radius: 50px;
+	}
+	#timeSplit{
+		width: 63px;
+		height: 50px;
+		right: 55px;
+		bottom: 200px;
+		position: absolute;
+		font-size: 30px;
+		font-family:"Trebuchet MS", Helvetica, sans-serif;
+		text-align: center;
+		font-weight: bold;
+		padding-top: 12px;
+		border:black solid 1px;
+		background-color: #72bcd4;
+		border-radius: 50px;
+	}
+	#death{
+		width: 70px;
+		height: 50px;
+		right: 52px;
+		bottom: 300px;
+		position: absolute;
+		font-size: 50px;
+		font-family:"Trebuchet MS", Helvetica, sans-serif;
+		text-align: center;
+		font-weight: bold;
+		padding-bottom: 20px;
+		border:black solid 1px;
+		background-color: green;
+		color: black;
+		border-radius: 50px;
+	}
+	.completed{
+		
+		position: relative;
+		left: -50%;
+		width: 600px;
+		z-index: 10;
+	}
+	.center{
+		position: absolute;
+		top: 190px;
+		left: 50%;
+	}
+	#endscreen{
+		display: none;s
+		position: absolute;
+   		left: 50%;
+    	top: 50%;
+    	bottom: 0;
+    	width: 870px;
+    	height: 88%;
+    	transform: translate(-50%,-50%);
+    	background-color: #303030;
+    	opacity: 0.85;
+	}
+	.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+.op:before,.op:after {
+  content: "";
+  display: block;
+}
+.op:after {
+  clear: both;
+}
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="MinefieldEB.js"></script>
+<script>
+ $.myjQuery = function() {
+    $( ".para" ).remove(); 
+    };
+
+    $(document).ready( function() {
+       $('#failed').hide();
+       $('#completed').hide();
+       $('#time2').hide();
+       $('#timeSplit').hide();
+       $('#death').hide();
+    });
+
+    var split=false;
+	var i = 600;
+	var p=1;
+	var timerRef = 600;
+	function timerStart()
+	{
+		timerRef = window.setInterval("increaseTimer()", 1000);
+	}
+
+	function timerStop()
+	{
+		window.clearInterval(timerRef);
+	}
+
+	function increaseTimer()
+	{
+		var quotient = Math.floor(i/60);
+		var remainder = i % 60;
+		if (quotient>=10) {
+			if (remainder>=10) {
+				document.getElementById("time3").innerHTML =quotient+":"+remainder;
+			}
+			else{
+				document.getElementById("time3").innerHTML =quotient+":0"+remainder;
+			}
+			
+		}
+		else if (quotient<10&&quotient!=0) {
+			if (remainder>=10) {
+				document.getElementById("time3").innerHTML ="0"+quotient+":"+remainder;
+			}
+			else{
+				document.getElementById("time3").innerHTML ="0"+quotient+":0"+remainder;
+			}
+		}
+		else if(quotient==0) {
+			document.getElementById("time3").innerHTML ="00:"+remainder;
+			document.getElementById("time").style.color="red";
+		}
+
+		i = i - p;
+		
+		
+		if (i<=0) {
+			p=0;
+			timerReset();
+			gameEnded(false);
+		}
+	}
+
+
+	function timerReset()
+	{
+		document.getElementById("time3").innerHTML ="00:00";
+	}
+	timerStart();
+
+	var times=2;
+	function unhide() {
+	document.getElementById("time2").innerHTML="x"+times;
+		$('#time2').stop(false,true);
+        $('#time2').delay(0).fadeIn(600);
+        $('#time2').delay(3000).fadeOut(600);
+}
+	function unhideSplit() {
+        $('#timeSplit').delay(0).fadeIn(600);
+        $('#timeSplit').delay(3000).fadeOut(600);
+}
+	function unhideDeath() {
+        $('#death').delay(0).fadeIn(600);
+        $('#death').delay(3000).fadeOut(600);
+}
+
+function newGame() {
+
+	$(document).ready( function() {
+	   $('#time2').stop(true);
+       $('#timeSplit').stop(true);
+       $('#death').stop(true);
+       $('#failed').hide();
+       $('#completed').hide();
+       $('#time2').hide();
+       $('#timeSplit').hide();
+       $('#death').hide();
+    });
+
+	split=false;
+	i=600;
+	p=1;
+	timerRef = 600;
+	times=2
+	minefield = new Minefield(30, 15, 35);
+	$.myjQuery();
+	print();
+}
+function check() {
+	var x = document.getElementById("x").value;
+	var y = document.getElementById("y").value;
+	alert(minefield.symbol(x, y));
+}
+function XandY(id){
+	var xAndY;
+	var x=Math.floor(id/30);
+	var y=id%30;
+	xAndY=[x,y];
+	return xAndY;
+}
+function hit(id) {
+	var xAndY=XandY(id);
+	var y = xAndY[0];
+	var x = xAndY[1];
+	minefield.unveil(x, y);
+	$.myjQuery();
+	print();
+
+	if (minefield.symbol(x,y)=="x") {
+		unhide();
+		times++;
+		p++;
+	}
+	if(minefield.veiled + minefield.explosions - 35==0){
+		p=0;
+		gameEnded(true);
+	}
+	if (minefield.explosions==4&&split==false) {
+			i=Math.floor(i/2);
+			unhideSplit();
+			split=true;
+		}
+		if (minefield.explosions==10) {
+			unhideDeath();
+			p=0;
+			gameEnded(false);
+		}
+
+}
+function print() {
+	var remaining = minefield.veiled + minefield.explosions - 35;
+	var id=0;
+	for (var i = 0; i < 15; i++) {
+		for (var j = 0; j <30; j++) {
+			if (minefield.symbol(j,i)=="x") {
+				printBomb(i,j);
+				id=id+1;
+				
+			}
+			else if (minefield.symbol(j,i)==".") {
+				printBox(i,j,id);
+				id=id+1;
+			}
+			
+			else{
+				printNum(i,j,id);
+				id=id+1;
+			}
+		}
+	}
+	
+
+	document.getElementById("remaining").innerHTML =remaining;
+	document.getElementById("explosions").innerHTML =minefield.explosions;
+}
+
+	function gameEnded(result){
+		if (result) {
+			$('#completed').delay(0).fadeIn(600);
+			$('#completed').delay(3000).fadeOut(600);
+			$(document).ready(function($) {
+    		setTimeout(function() {
+     			newGame();
+    			}, 4200);
+			});
+			document.getElementById("endscreen").style.display = "block";
+		}
+		else{
+			$('#failed').delay(0).fadeIn(600);
+			$('#failed').delay(3000).fadeOut(600);
+			$(document).ready(function($) {
+    		setTimeout(function() {
+     			newGame();
+    			}, 4200);
+			});
+			document.getElementById("endscreen").style.display = "block";
+		} 
+		}
+
+</script>
+</head>
+<body>
+	<header>
+	<div id="title">
+		MINESWEEPER
+	</div>
+	<input type="button" value="New Game" id="new" onclick="newGame()">
+	<input type="button" value="Dificulty" id="info" onclick="window.location.href='index.html'" />
+	</header>
+	<div id="output" class="op" class="noselect"></div>
+	<div id="remaining2">
+		Non bomb spaces reamaining:
+		<div id="remaining"></div>
+	</div>
+	<div id="explosions2">
+		Number of explosions:
+		<div id="explosions"></div>
+	</div>
+	<div id="death">&#9762</div>
+	<div id="timeSplit">%2</div>
+	<div id="time2">x2</div>
+	<div id="time">
+	<a id="time3">START</a>
+	</div>
+	<div id="endscreen"></div>
+	<div class="center">
+	<img src="completed.png" alt="completed" class="completed" id="completed" >
+	</div>
+	<div class="center">
+	<img src="failed.png" alt="completed" class="completed" id="failed" >
+	</div>
+	<div id="endscreen"></div>
+<script>
+	newGame();
+	$(document).ready( function() {
+        $('#time2').delay(0).hide();
+      });
+	function printBox(x,y,id){
+		for (var i = 0, n = 1; i < n; i++) {
+ 		var para = document.createElement("P");
+  		para.innerHTML = "&#x25FC";
+  		para.classList.add("para");
+  		para.classList.add("noselect");
+  		para.id="div"+id;
+  		document.getElementById("output").appendChild(para);
+  		document.getElementById("div"+id).addEventListener("click", function(){hit(id);});
+		}
+	}
+	
+	function printBomb(x,y,id){
+		for (var i = 0, n = 1; i < n; i++) {
+ 		var para = document.createElement("P");
+  		para.innerHTML = "&#128165;";
+  		para.classList.add("para");
+  		para.classList.add("bomb");
+  		para.classList.add("noselect");
+  		para.id="div"+id;
+  		document.getElementById("output").appendChild(para);
+		}
+	}
+	function printNum(x,y,id){
+		for (var i = 0, n = 1; i < n; i++) {
+ 		var para = document.createElement("P");
+  		para.innerHTML = minefield.symbol(y,x);
+  		para.classList.add("para");
+  		para.classList.add("noselect");
+  		para.id="div"+id;
+  		document.getElementById("output").appendChild(para);
+  		if (document.getElementById("div"+id).innerHTML=="1") {
+  			document.getElementById("div"+id).style.color= "#add8e6";
+  		}
+  		else if (document.getElementById("div"+id).innerHTML=="2") {
+  			document.getElementById("div"+id).style.color= "green";
+  		}
+  		else if (document.getElementById("div"+id).innerHTML=="3") {
+  			document.getElementById("div"+id).style.color= "red";
+  		}
+  		else if (document.getElementById("div"+id).innerHTML=="4") {
+  			document.getElementById("div"+id).style.color= "purple";
+  		}
+  		else if (document.getElementById("div"+id).innerHTML=="5") {
+  			document.getElementById("div"+id).style.color= "yellow";
+  		}
+  		else if (document.getElementById("div"+id).innerHTML=="6") {
+  			document.getElementById("div"+id).style.color= "pink";
+  		}
+  		else if (document.getElementById("div"+id).innerHTML=="7") {
+  			document.getElementById("div"+id).style.color= "blue";
+  		}
+  		else if (document.getElementById("div"+id).innerHTML=="8") {
+  			document.getElementById("div"+id).style.color= "black";
+  		}
+  		else if (document.getElementById("div"+id).innerHTML=="0") {
+  			document.getElementById("div"+id).style.color= "white";
+  		}
+	}
+	}
+	
+</script>
+<footer>Created by Nejc Robič</footer>
+</body>
+</html>

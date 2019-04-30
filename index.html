@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<title>Minesweeper</title>
+<head>
+	<link rel="icon" href="http://www.sireasgallery.com/iconset/minesweeper/Flag_256x256_32.png">
+<style>
+	body{
+		background-color: #FDA50F;
+		margin: 0;
+		margin-right: 0;
+	}
+	header{
+		background-color: #303030;
+		color: white;
+		margin: 0px;
+		padding: 0px;
+		border-bottom:white 1px solid;
+		width: 100%;
+		text-align: center;
+	}
+	footer{
+		position:fixed;
+  		bottom:0;
+  		width:100%;
+   		height:20px; 
+  		background:#303030;
+  		color: white;
+  		padding-left: 10px;
+	}
+	p{
+		margin: auto;
+		margin-top: 40px;
+		text-align: center;
+	}
+	#welcome{
+		color: white;
+		margin-top: 30px;
+		padding: 0px;
+		width: 100%;
+		text-align: center;
+		font-size: 60px;
+		font-family: Impact, Charcoal, sans-serif;
+		font-weight: bold;
+		text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	}
+	#title{
+		display: inline-block;
+		font-size: 40px;
+		font-family: Impact, Charcoal, sans-serif;
+		margin:0 auto;
+		padding: 0px;
+		width: 225px;
+	}
+	#divForm{
+		margin: auto;
+		margin-top:30px;
+  		width: 402px;
+  		border: 6px groove white;
+  		padding: 10px;
+  		color: WhiteSmoke;
+  		line-height: 0.8;
+  		text-align: center;
+  		background-color: #303030;
+	}
+	#whatTodo{
+		font-size: 25px;
+		font-family:Impact, Charcoal, sans-serif;
+	}
+	#dificulty{
+		margin-top: 40px;
+		font-size: 25px;
+		font-family:Impact, Charcoal, sans-serif;
+	}
+	#sizes{
+		margin-top: 40px;
+		font-size: 25px;
+		font-family:Impact, Charcoal, sans-serif;
+	}
+
+	.dificulties{
+		margin: auto;
+		margin-top: 20px;
+		text-align: center;
+		width: 100px;
+		height: 20px;
+		padding-top: 8px;
+		background-color:#484848; 
+		border: 1px #484848 solid;
+		font-family: Verdana, Geneva, sans-serif;
+		cursor: pointer;
+	}
+	#big{
+		margin-bottom: 20px;
+	}
+
+	#buttoon{
+		color: white;
+		background-color: #303030;
+		width: 80px;
+		height: 40px;
+		border:1px solid white;
+		font-family: Verdana, Geneva, sans-serif;
+		font-weight: bold;
+		font-size: 16px;
+		margin-bottom: 30px;
+	}
+	#instructions{
+		line-height: 1.5;
+		font-family: Verdana, Geneva, sans-serif;
+		font-size: 12px;
+	}
+	</style>
+	<script>
+	var diff;
+	var size;
+
+	function Game(){
+		if (diff=="eazy"&&size=="small") {
+			window.location.href="minesweeperES.html";
+		}
+		else if (diff=="eazy"&&size=="medium") {
+			window.location.href="minesweeperEM.html";
+		}
+		else if (diff=="eazy"&&size=="big") {
+			window.location.href="minesweeperEB.html";
+		}
+		else if (diff=="medium"&&size=="small") {
+			window.location.href="minesweeperMS.html";
+		}
+		else if (diff=="medium"&&size=="medium") {
+			window.location.href="minesweeperMM.html";
+		}
+		else if (diff=="medium"&&size=="big") {
+			window.location.href="minesweeperMB.html";
+		}
+		else if (diff=="hard"&&size=="small") {
+			window.location.href="minesweeperHS.html";
+		}
+		else if (diff=="hard"&&size=="medium") {
+			window.location.href="minesweeperHM.html";
+		}
+		else if (diff=="hard"&&size=="big") {
+			window.location.href="minesweeperHB.html";
+		}
+		else{
+			if (diff==null&&size!=null) {
+				document.getElementById("dificulty").style.color="red";
+			}
+			else if (size==null&&diff!=null) {
+				document.getElementById("sizes").style.color="red";
+			}
+			else{
+				document.getElementById("sizes").style.color="red";
+				document.getElementById("dificulty").style.color="red";
+			}
+		}
+	}	
+
+		function dificulty(dif) {
+			if (dif=="Eazy") {
+				document.getElementById("ez").style="border:yellow solid 1px"
+				document.getElementById("mediumD").style="border:#484848 solid 1px"
+				document.getElementById("hard").style="border:#484848 solid 1px"
+				diff="eazy";
+			}
+			else if (dif=="Medium") {
+				document.getElementById("mediumD").style="border:yellow solid 1px"
+				document.getElementById("ez").style="border:#484848 solid 1px"
+				document.getElementById("hard").style="border:#484848 solid 1px"
+				diff="medium";
+			}
+			else if (dif=="Hard") {
+				document.getElementById("hard").style="border:yellow solid 1px"
+				document.getElementById("ez").style="border:#484848 solid 1px"
+				document.getElementById("mediumD").style="border:#484848 solid 1px"
+				diff="hard";
+			}
+		}
+		function sizes(dif) {
+			if (dif=="Small") {
+				document.getElementById("small").style="border:yellow solid 1px"
+				document.getElementById("mediumS").style="border:#484848 solid 1px"
+				document.getElementById("big").style="border:#484848 solid 1px"
+				size="small";
+			}
+			else if (dif=="Medium") {
+				document.getElementById("mediumS").style="border:yellow solid 1px"
+				document.getElementById("small").style="border:#484848 solid 1px"
+				document.getElementById("big").style="border:#484848 solid 1px"
+				size="medium";
+			}
+			else if (dif=="Big") {
+				document.getElementById("big").style="border:yellow solid 1px"
+				document.getElementById("small").style="border:#484848 solid 1px"
+				document.getElementById("mediumS").style="border:#484848 solid 1px"
+				size="big";
+			}
+		}
+	</script>
+	</head>
+<body>
+	<header>
+	<div id="title">
+		MINESWEEPER
+	</header>
+		<div id="welcome">Welcome to Minesweeper</div>
+		<div id="divForm">
+		<div id="whatTodo">
+			Select the size and dificulty of the game:
+		</div>
+		<div id="dificulty">Dificulty:</div>
+		<div class="dificulty2">  <p class="dificulties" id="ez" onmousedown="dificulty(document.getElementById('ez').innerHTML)">Eazy</p> <p id="mediumD" class="dificulties" onmousedown="dificulty(document.getElementById('mediumD').innerHTML)">Medium</p> <p id="hard" class="dificulties" onmousedown="dificulty(document.getElementById('hard').innerHTML)">Hard</p>
+		</div>
+		<div id="sizes">Size:</div>
+		<div class="dificulty2">  <p class="dificulties" id="small" onmousedown="sizes(document.getElementById('small').innerHTML)">Small</p> <p id="mediumS" class="dificulties" onmousedown="sizes(document.getElementById('mediumS').innerHTML)">Medium</p> <p id="big" class="dificulties" onmousedown="sizes(document.getElementById('big').innerHTML)">Big</p>
+		</div>
+		<div id="instructions">
+			(Every explosion speeds up the timer)<br>
+			(Hitting more than 3 bombs halves your time instantly)<br>
+			(Hitting 10 bombs loses you the game)
+
+		</div>
+		</div>
+
+		<p id="button"><input type="button" name="buttoon" id="buttoon" value="Play" onclick="Game();"></p>
+	
+	<footer>Created by Nejc Robič</footer>
+</body>
+</html>
