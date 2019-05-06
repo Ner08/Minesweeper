@@ -455,20 +455,24 @@ function print() {
 
 	function gameEnded(result){
 		if (result) {
+			document.getElementById("output").style.pointerEvents = "none";
 			$('#completed').delay(0).fadeIn(600);
 			$('#completed').delay(3000).fadeOut(600);
 			$(document).ready(function($) {
     		setTimeout(function() {
-     			window.location.href="minesweeperHM.html"
+    			document.getElementById("output").style.pointerEvents = "initial";
+     			newGame();
     			}, 4200);
 			});
 			newGame();
 		}
 		else{
+			document.getElementById("output").style.pointerEvents = "none";
 			$('#failed').delay(0).fadeIn(600);
 			$('#failed').delay(3000).fadeOut(600);
 			$(document).ready(function($) {
     		setTimeout(function() {
+    			document.getElementById("output").style.pointerEvents = "initial";
      			newGame();
     			}, 4200);
 			});
